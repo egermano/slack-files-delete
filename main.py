@@ -6,7 +6,7 @@ import calendar
 import urllib
 from datetime import datetime, timedelta
 
-TOKEN = "xoxp-2687371686-2687371690-3123523216-c862d7"
+TOKEN = "YOURTOKEN"
 DAYS = 30
 
 date = str(calendar.timegm((datetime.now() + timedelta(- DAYS)).utctimetuple()))
