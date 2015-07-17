@@ -13,4 +13,6 @@ So, i write this script to do this form me.
 
 You will need to clone this repo and just execute in your terminal like this:
 
-  python main.py
+````bash
+python main.py
+````
