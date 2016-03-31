@@ -49,7 +49,7 @@ else:
 
 for f in files:
     try:
-        print "Deleting file " + str(f["id"]) + ": " + str(f["name"]) + "..."
+        print "Deleting file " + str(f["id"]) + ": " + f["name"].encode('utf-8') + "..."
 
         timestamp = str(calendar.timegm(datetime.now().utctimetuple()))
         url = "https://slack.com/api/files.delete?t=" + timestamp
