@@ -1,4 +1,7 @@
 # -*- encoding: utf-8 -*-
+#!/usr/bin/env python
+
+""" Script for bulk delete files in slack. """
 
 import httplib2
 import json
@@ -39,7 +42,7 @@ while paging["page"] < paging["pages"]:
         body=data,
         headers={'Content-type': 'application/x-www-form-urlencoded'})
 
-    files.append(json.loads(content)["files"])
+    files = files + json.loads(content)["files"]
     paging = json.loads(content)["paging"]
 
 if len(files) < 1:
@@ -49,7 +52,7 @@ else:
 
 for f in files:
     try:
-        print "Deleting file " + str(f["id"]) + ": " + f["name"].encode('utf-8') + "..."
+        print "Deleting file " + str(f["id"]) + ": " + f["name"].encode('utf-8') + "...",
 
         timestamp = str(calendar.timegm(datetime.now().utctimetuple()))
         url = "https://slack.com/api/files.delete?t=" + timestamp
@@ -58,16 +61,18 @@ for f in files:
             "token": TOKEN,
             "file": f["id"],
             "set_active": "true",
-            "_attempts": "1"};
+            "_attempts": "1"}
 
         data = urllib.urlencode(params)
 
         h = httplib2.Http()
 
-        (resp, content)  = h.request(url,
+        (resp, content) = h.request(url,
             "POST",
             body=data,
             headers={'Content-type': 'application/x-www-form-urlencoded'})
+
+        print "[{}]".format("\033[92m {}\033[00m" .format(json.loads(content)["OK"]))
 
     except Exception as e:
         print e
