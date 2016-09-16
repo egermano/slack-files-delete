@@ -7,6 +7,7 @@ import httplib2
 import json
 import calendar
 import urllib
+import sys
 from datetime import datetime, timedelta
 
 TOKEN = "YOURTOKEN"
@@ -25,8 +26,15 @@ h = httplib2.Http()
     body=data,
     headers={'Content-type': 'application/x-www-form-urlencoded'})
 
-files = json.loads(content)["files"]
-paging = json.loads(content)["paging"]
+def check_error(error_message, answer, error_code = 1):
+    if not answer["ok"]:
+        print >> sys.stderr, '%s : %s' % (error_message, answer['error'])
+        sys.exit(error_code)
+
+answer = json.loads(content)
+check_error('Could not get file list', answer)
+files = answer["files"]
+paging = answer["paging"]
 
 while paging["page"] < paging["pages"]:
     newPage = paging["page"] + 1
@@ -42,8 +50,10 @@ while paging["page"] < paging["pages"]:
         body=data,
         headers={'Content-type': 'application/x-www-form-urlencoded'})
 
-    files = files + json.loads(content)["files"]
-    paging = json.loads(content)["paging"]
+    answer = json.loads(content)
+    check_error('Could not get page of file', answer)
+    files = files + answer["files"]
+    paging = answer["paging"]
 
 if len(files) < 1:
     print "No files to delete."
