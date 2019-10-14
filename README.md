@@ -15,18 +15,16 @@ So, I wrote this script to do that for me.
 In order to delete files the script needs your so called **legacy token**. You can create and mange yours here:  
 [https://api.slack.com/custom-integrations/legacy-tokens](https://api.slack.com/custom-integrations/legacy-tokens)
 
-Once you cloned or downloaded this repo you need to edit the file `main.py`.
-
-```python
-# Create and manage yours at https://api.slack.com/custom-integrations/legacy-tokens
-TOKEN = "YOURTOKEN"
-
-# The timespan you want to keep files. Everything older then that will be deleted.
-DAYS = 30
-```
-
-Now you can just execute it in your terminal like this:
+The script takes arguments to configure your token and the days you want to keep files for.
 
 ```bash
-python main.py
+-t TOKEN      Your slack legacy token. (required)
+-d DAYS       The amount of days you want to keep. (default: 30)
+              Everything older will be deleted.
+```
+
+So you can just execute it in your terminal like this:
+
+```bash
+python main.py -t xoxp-... -d 90
 ```
