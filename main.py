@@ -10,8 +10,11 @@ import urllib
 import sys
 from datetime import datetime, timedelta
 
-TOKEN = "YOURTOKEN"
-DAYS = 30
+# Create and manage yours at https://api.slack.com/custom-integrations/legacy-tokens
+TOKEN = "YOURTOKEN" 
+
+# The timespan you want to keep files. Everything older then that will be deleted.
+DAYS = 30 
 
 date = str(calendar.timegm((datetime.now() + timedelta(- DAYS)).utctimetuple()))
 
