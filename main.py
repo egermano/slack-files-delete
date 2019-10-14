@@ -8,13 +8,35 @@ import json
 import calendar
 import urllib
 import sys
+import argparse
 from datetime import datetime, timedelta
 
+DAYS = 30 
+
+parser = argparse.ArgumentParser(
+    description="Delete old files from Slack."
+)
+
 # Create and manage yours at https://api.slack.com/custom-integrations/legacy-tokens
-TOKEN = "YOURTOKEN" 
+parser.add_argument(
+    "-t",
+    "--token",
+    help='The slack legacy token. Manage yours at https://api.slack.com/custom-integrations/legacy-tokens',
+    required=True
+)
 
 # The timespan you want to keep files. Everything older then that will be deleted.
-DAYS = 30 
+parser.add_argument(
+    "-d",
+    "--days",
+    help='Amount of days that should stay. Everything that is older will be deleted.', 
+    type=int,
+    default=DAYS
+)
+
+args = parser.parse_args()
+TOKEN = args.token
+DAYS = args.days
 
 date = str(calendar.timegm((datetime.now() + timedelta(- DAYS)).utctimetuple()))
 
