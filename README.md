@@ -1,4 +1,5 @@
 # Slack Files Delete
+
 > Script for bulk delete files in slack.
 
 I love Slack, but I don’t have money enough to pay for all users in my company.
@@ -11,8 +12,19 @@ So, I wrote this script to do that for me.
 
 ## Using
 
-You will need to clone this repo and just execute in your terminal like this:
+In order to delete files the script needs your so called **legacy token**. You can create and mange yours here:  
+[https://api.slack.com/custom-integrations/legacy-tokens](https://api.slack.com/custom-integrations/legacy-tokens)
 
-````bash
-python main.py
-````
+The script takes arguments to configure your token and the days you want to keep files for.
+
+```bash
+-t TOKEN      Your slack legacy token. (required)
+-d DAYS       The amount of days you want to keep. (default: 30)
+              Everything older will be deleted.
+```
+
+So you can just execute it in your terminal like this:
+
+```bash
+python main.py -t xoxp-... -d 90
+```
